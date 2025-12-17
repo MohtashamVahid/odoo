@@ -1,8 +1,9 @@
-FROM python:3.10-slim-bookworm
+FROM python:3.11-slim-bookworm
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=1
+ENV PIP_PREFER_BINARY=1
 
 # system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
