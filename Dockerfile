@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     zlib1g-dev \
     libpq-dev \
+    postgresql-client \
     wkhtmltopdf \
     curl \
     git \
@@ -25,8 +26,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /opt/odoo
 
 COPY requirements.txt .
-RUN pip install --upgrade pip setuptools wheel Cython \
-    && pip install -r requirements.txt
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
@@ -34,4 +35,4 @@ RUN chmod +x odoo-bin
 
 EXPOSE 8069
 
-CMD ["python3", "odoo-bin", "-c", "odoo.conf"]
+CMD ["python3", "odoo-bin"]
