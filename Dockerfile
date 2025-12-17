@@ -26,14 +26,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /opt/odoo
 
-# نصب کتابخانه‌های پایتون
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel \
     && pip install --no-cache-dir -r requirements.txt
 
-# کپی پروژه Odoo
-COPY . .
+COPY odoo odoo
+COPY odoo-bin .
 
+
+  
 # دسترسی اجرای فایل odoo-bin
 RUN chmod +x odoo-bin
 
