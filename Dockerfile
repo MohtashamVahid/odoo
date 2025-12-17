@@ -1,11 +1,11 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=1
 ENV PIP_PREFER_BINARY=1
 
-# system dependencies
+# نصب وابستگی‌های سیستمی مورد نیاز Odoo
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
@@ -26,12 +26,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /opt/odoo
 
+# نصب کتابخانه‌های پایتون
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel \
     && pip install --no-cache-dir -r requirements.txt
 
+# کپی پروژه Odoo
 COPY . .
 
+# دسترسی اجرای فایل odoo-bin
 RUN chmod +x odoo-bin
 
 EXPOSE 8069

@@ -1,13 +1,15 @@
+version: "3.9"
+
 services:
   db:
-    image: postgres:15
+    image: postgres:16
     container_name: odoo_db
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: odoo
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      test: ["CMD-SHELL", "pg_isready -U odoo -d odoo"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,7 +28,7 @@ services:
       PGPORT: ${PGPORT:-5432}
       PGUSER: ${PGUSER:-odoo}
       PGPASSWORD: ${PGPASSWORD:-odoo}
-      PGDATABASE: ${PGDATABASE:-postgres}
+      PGDATABASE: ${PGDATABASE:-odoo}
     ports:
       - "8069:8069"
     volumes:
