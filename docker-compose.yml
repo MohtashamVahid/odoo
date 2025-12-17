@@ -22,11 +22,11 @@ services:
     depends_on:
       - db
     environment:
-      PGHOST: db
-      PGPORT: 5432
-      PGUSER: odoo
-      PGPASSWORD: odoo
-      PGDATABASE: postgres
+      PGHOST: ${PGHOST:-db}
+      PGPORT: ${PGPORT:-5432}
+      PGUSER: ${PGUSER:-odoo}
+      PGPASSWORD: ${PGPASSWORD:-odoo}
+      PGDATABASE: ${PGDATABASE:-postgres}
     ports:
       - "8069:8069"
     volumes:
@@ -34,15 +34,15 @@ services:
     working_dir: /opt/odoo
     command: >
       bash -c "
-      until pg_isready -h \"$PGHOST\" -p \"$PGPORT\" -U \"$PGUSER\" -d \"$PGDATABASE\"; do
+      until pg_isready -h \"$$PGHOST\" -p \"$$PGPORT\" -U \"$$PGUSER\" -d \"$$PGDATABASE\"; do
         echo 'waiting for database...';
         sleep 2;
       done;
       exec python3 odoo-bin
-        --db_host=$PGHOST
-        --db_port=$PGPORT
-        --db_user=$PGUSER
-        --db_password=$PGPASSWORD
+        --db_host=$$PGHOST
+        --db_port=$$PGPORT
+        --db_user=$$PGUSER
+        --db_password=$$PGPASSWORD
         --http-port=8069
       "
 

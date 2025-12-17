@@ -1,11 +1,11 @@
-FROM python:3.10
+FROM python:3.10-slim-bookworm
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=1
 
 # system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
     libxml2-dev \
